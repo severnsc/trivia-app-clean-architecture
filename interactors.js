@@ -23,11 +23,18 @@ const newGame = (questions, save) => {
   }
 }
 
-const submitAnswer = (gameId, find, questionId, answer) => {
-  const game = find(gameId)
+const submitAnswer = (find, gameId, questionId, answer) => {
+  const game = find(gameId) // <- this needs to be an entity in order to call the function...
   const submittedAnswer = {questionId, answer}
   game.submitAnswer(submittedAnswer)
-  return game
+  return {
+    id: game.id,
+    questions: game.questions,
+    submittedAnswers: game.submittedAnswers,
+    numberCorrect: game.numberCorrect,
+    totalAnswered: game.totalAnswered,
+    complete: game.complete
+  }
 }
 
 module.exports = {
