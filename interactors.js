@@ -1,15 +1,18 @@
 const entities = require('./entities')
 const url = 'https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean'
 
-const createNewGame = async (save, fetch) => {
-  const questionsResponse = await fetch(url)
-  const parsedQuestionsResponse = await questionsResponse.json()
-  const parsedQuestions = parsedQuestionsResponse.results
-  const questionEntities = parsedQuestions.map(parsedQuestion => 
+const getQuestions = async fetch => {
+  const response = await fetch(url)
+  const parsedResponse = await response.json()
+  return parsedResponse.results
+}
+
+const createNewGame = (questions, save) => {
+  const questionEntities = questions.map(parsedQuestion => 
     entities.createQuestion(parsedQuestion.category, parsedQuestion.text, parsedQuestion.correct_answer, parsedQuestion.incorrect_answers)
   )
   const newGame = entities.createGame(questionEntities)
-  const questions = newGame.questions.map(question => ({
+  const condensedQuestions = newGame.questions.map(question => ({
       id: question.id,
       category: question.category,
       text: question.text, 
@@ -19,7 +22,7 @@ const createNewGame = async (save, fetch) => {
   save(newGame)
   return {
     id: newGame.id,
-    questions,
+    questions: condensedQuestions,
     complete: newGame.complete
   }
 }
