@@ -9,7 +9,7 @@ const getQuestions = async fetch => {
 
 const createNewGame = (questions, save) => {
   const questionEntities = questions.map(question => 
-    entities.createQuestion(question.category, question.text, question.correct_answer, question.incorrect_answers)
+    entities.createQuestion(question.category, question.text, question.correctAnswer, question.incorrectAnswers)
   )
   const newGame = entities.createGame(questionEntities)
   const condensedQuestions = newGame.questions.map(question => ({
