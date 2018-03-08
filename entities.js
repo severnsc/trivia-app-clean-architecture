@@ -2,10 +2,10 @@ const shortid = require('shortid')
 
 const createGame = questions => ({
   id: shortid.generate(),
-  questions, //validate these somehow
+  questions,
   submittedAnswers: [],
-  submitAnswer (submittedAnswer) { //validate these somehow
-    if(!this.completed){
+  submitAnswer (submittedAnswer) {
+    if(!this.complete){
       return this.submittedAnswers = [
         ...this.submittedAnswers,
         submittedAnswer
@@ -21,11 +21,22 @@ const createGame = questions => ({
   get totalAnswered (){
     return this.submittedAnswers.length
   },
-  get completed (){
+  get complete (){
     return this.totalAnswered === this.questions.length ? true : false
   }
 })
 
+const createQuestion = (category, text, correctAnswer, incorrectAnswers) => {
+  return {
+    id: shortid.generate(),
+    category,
+    text,
+    correctAnswer,
+    incorrectAnswers
+  }
+}
+
 module.exports = {
-  createGame
+  createGame,
+  createQuestion
 }
