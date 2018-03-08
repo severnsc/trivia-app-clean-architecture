@@ -26,15 +26,13 @@ const createGame = questions => ({
   }
 })
 
-const createQuestion = (category, text, correctAnswer, incorrectAnswers) => {
-  return {
-    id: shortid.generate(),
-    category,
-    text,
-    correctAnswer,
-    incorrectAnswers
-  }
-}
+const createQuestion = (category, text, correctAnswer, incorrectAnswers) => ({
+  id: shortid.generate(),
+  category,
+  text,
+  correctAnswer,
+  incorrectAnswers
+})
 
 module.exports = {
   createGame,
