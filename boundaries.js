@@ -1,9 +1,9 @@
 const interactors = require('./interactors')
 const fetch = require('node-fetch')
 
-const createNewGame = () => {
+const createNewGame = save => {
   const questions = interactors.getQuestions(fetch).then(questions)
-  const newGame = interactors.newGame(questions, game => {})
+  const newGame = interactors.newGame(questions, save)
   const dtoQuestions = newGame.questions.map(question => ({
       id: question.id,
       category: question.category,
@@ -14,8 +14,8 @@ const createNewGame = () => {
   return Object.assign({}, newGame, {questions: dtoQuestions})
 }
 
-const submitAnswer = (gameId, questionId, answer) => {
-  const game = interactors.submitAnswer(id => {}, gameId, questionId, answer, game => {})
+const submitAnswer = (find, gameId, questionId, answer, save) => {
+  const game = interactors.submitAnswer(find, gameId, questionId, answer, save)
   const dtoQuestions = game.questions.map(question => ({
       id: question.id,
       category: question.category,
