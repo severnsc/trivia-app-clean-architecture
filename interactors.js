@@ -23,7 +23,7 @@ const newGame = (questions, save) => {
   }
 }
 
-const submitAnswer = (find, gameId, questionId, answer) => {
+const submitAnswer = (find, gameId, questionId, answer, save) => {
   const gameObject = find(gameId)
   const dummyGame = entities.createGame([{}])
   const game = Object.assign({}, dummyGame, {
@@ -33,6 +33,7 @@ const submitAnswer = (find, gameId, questionId, answer) => {
   })
   const submittedAnswer = {questionId, answer}
   game.submitAnswer(submittedAnswer)
+  save(game)
   return {
     id: game.id,
     questions: game.questions,

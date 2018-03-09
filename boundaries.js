@@ -15,7 +15,7 @@ const createNewGame = () => {
 }
 
 const submitAnswer = (gameId, questionId, answer) => {
-  const game = interactors.submitAnswer(id => {}, gameId, questionId, answer)
+  const game = interactors.submitAnswer(id => {}, gameId, questionId, answer, game => {})
   const dtoQuestions = game.questions.map(question => ({
       id: question.id,
       category: question.category,
