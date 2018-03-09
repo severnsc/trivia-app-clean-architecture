@@ -24,7 +24,13 @@ const newGame = (questions, save) => {
 }
 
 const submitAnswer = (find, gameId, questionId, answer) => {
-  const game = find(gameId) // <- this needs to be an entity in order to call the function...
+  const gameObject = find(gameId)
+  const dummyGame = entities.createGame([{}])
+  const game = Object.assign({}, dummyGame, {
+    id: gameObject.id,
+    questions: gameObject.questions,
+    submittedAnswers: gameObject.submittedAnswers
+  })
   const submittedAnswer = {questionId, answer}
   game.submitAnswer(submittedAnswer)
   return {
