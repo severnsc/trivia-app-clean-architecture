@@ -29,7 +29,9 @@ const getGameStatistics = (gameId, getGameById) => {
   const game = getGameById(gameId)
   
   const numberCorrect = game.answers.reduce((total, answer) => {
-    const currentQuestion = game.questions.find(question => question.id === answer.questionId)
+    const currentQuestion = game.questions.find(question => 
+      question.id === answer.questionId
+    )
     if(currentQuestion.correctAnswer === answer.value){
       return total + 1
     }
