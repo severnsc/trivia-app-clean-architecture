@@ -4,13 +4,15 @@ const should = chai.should()
 const expect = chai.expect
 
 describe('createQuestion', () => {
+
+  let category = "foo"
+  let text = "bar"
+  let correctAnswer = true
+  let incorrectAnswers = [false]
   
   describe('happy path', () => {
+
     it('should create an object with question properties', () => {
-      const category = "foo"
-      const text = "bar"
-      const correctAnswer = true
-      const incorrectAnswers = [false]
       const question = entities.createQuestion(category, text, correctAnswer, incorrectAnswers)
       question.should.be.an('object')
       question.should.have.property('id')
@@ -30,24 +32,27 @@ describe('createQuestion', () => {
   })
   
   describe('argument problems', () => {
-    
+  
     describe('outer arguments are wrong type', () => {
+
+      before(() => {
+        category, text, correctAnswer = 1
+        incorrectAnswers = [1]
+      })
+
       it('should thow a TypeError', () => {
-        const category = 1
-        const text = 1
-        const correctAnswer = 1
-        const incorrectAnswers = [1]
         const errorfn = () => entities.createQuestion(category, text, correctAnswer, incorrectAnswers)
         expect(errorfn).to.throw(TypeError)
       })
     })
     
     describe('incorrectAnswers inner value wrong', () => {
+
+      before(() => {
+        incorrectAnswers = [1]
+      })
+
       it('should throw a TypeError', () => {
-        const category = "foo"
-        const text = "bar"
-        const correctAnswer = true
-        const incorrectAnswers = [1]
         const errorfn = () => entities.createQuestion(category, text, correctAnswer, incorrectAnswers)
         expect(errorfn).to.throw(TypeError)
       })

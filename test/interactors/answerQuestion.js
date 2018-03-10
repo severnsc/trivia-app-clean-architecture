@@ -21,6 +21,10 @@ describe('answerQuestion', () => {
     console.log('game saved!')
   }
 
+  let badAnswer
+
+  const badfn = () => interactors.answerQuestion(badAnswer, getGameById, saveGame)
+
   describe('happy path', () => {
     it('should append answer object to the game\'s answers', () => {
       const updatedGame = interactors.answerQuestion(answer, getGameById, saveGame)
@@ -32,27 +36,21 @@ describe('answerQuestion', () => {
   describe('misformatted answer object', () => {
     describe('where arguments are the wrong types', () => {
       it('should throw a TypeError', () => {
-        let badAnswer = Object.assign({}, answer, {gameId: 1})
-        let badfn = () => interactors.answerQuestion(badAnswer, getGameById, saveGame)
+        badAnswer = Object.assign({}, answer, {gameId: 1})
         expect(badfn).to.throw(TypeError)
         badAnswer = Object.assign({}, answer, {questionId: 1})
-        badfn = () => interactors.answerQuestion(badAnswer, getGameById, saveGame)
         expect(badfn).to.throw(TypeError)
         badAnswer = Object.assign({}, answer, {value: 1})
-        badfn = () => interactors.answerQuestion(badAnswer, getGameById, saveGame)
         expect(badfn).to.throw(TypeError)
       })
     })
     describe('where props are missing', () => {
       it('should throw an error', () => {
-        let badAnswer = {gameId: "1", questionId: "1"}
-        let badfn = () => interactors.answerQuestion(badAnswer, getGameById, saveGame)
+        badAnswer = {gameId: "1", questionId: "1"}
         expect(badfn).to.throw()
         badAnswer = {gameId: "1", value: true}
-        badfn = () => interactors.answerQuestion(badAnswer, getGameById, saveGame)
         expect(badfn).to.throw()
         badAnswer = {questionId: "1", value: true}
-        badfn = () => interactors.answerQuestion(badAnswer, getGameById, saveGame)
         expect(badfn).to.throw()
       })
     })

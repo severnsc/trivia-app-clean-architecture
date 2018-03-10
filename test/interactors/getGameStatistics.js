@@ -5,6 +5,8 @@ const expect = chai.expect
 
 describe('getGameStatistics', () => {
 
+  const gameId = "1"
+
   const questions = [
     {id: "1", category: "Entertainment", text: 'foo', correctAnswer: true, incorrectAnswers: [false]},
     {id: "2", category: "Entertainment", text: 'bar', correctAnswer: true, incorrectAnswers: [false]}
@@ -15,9 +17,14 @@ describe('getGameStatistics', () => {
     {gameId: "1", questionId: "2", value: true}
   ]
 
+  let getGameById = () => ({
+    id: "1",
+    questions,
+    answers
+  })
+
   describe('happy path', () => {
     it('should return an object with game stats', () => {
-      const gameId = "1"
       const getGameById = () => ({
         id: "1",
         questions,
@@ -35,12 +42,12 @@ describe('getGameStatistics', () => {
   })
   
   describe('alternative happy path', () => {
-    it('should return an object with game stats', () => {
-      const gameId = "1"
-      const getGameById = () => ({
+
+    before(() => {
+      getGameById = () => ({
         id: "1",
         questions: [
-          ...questions, 
+          ...questions,
           {
             id: "3", 
             category: "Entertainment", 
@@ -49,8 +56,14 @@ describe('getGameStatistics', () => {
             incorrectAnswers: [false]
           }
         ],
-        answers: [...answers, {gameId: "1", questionId: "3", value: true}]
+        answers: [
+          ...answers,
+          {gameId: "1", questionId: "3", value: true}
+        ]
       })
+    })
+
+    it('should return an object with game stats', () => {
       const statisticsObject = interactors.getGameStatistics(gameId, getGameById)
       statisticsObject.should.be.an('object')
       statisticsObject.should.have.property('gameId')
@@ -63,11 +76,14 @@ describe('getGameStatistics', () => {
   })
   
   describe('when getGameById returns an error', () => {
-    it('should throw an error', () => {
-      const gameId = "1"
-      const getGameById = () => {
+
+    before(() => {
+      getGameById = () => {
         throw new Error
       }
+    })
+
+    it('should throw an error', () => {
       const errorfn = () => interactors.getGameStatistics(gameId, getGameById)
       expect(errorfn).to.throw()
     })
