@@ -25,12 +25,7 @@ describe('getGameStatistics', () => {
 
   describe('happy path', () => {
     it('should return an object with game stats', () => {
-      const getGameById = () => ({
-        id: "1",
-        questions,
-        answers
-      })
-      const statisticsObject = interactors.getGameStatistics(gameId, getGameById)
+      const statisticsObject = interactors.getGameStatistics(getGameById)(gameId)
       statisticsObject.should.be.an('object')
       statisticsObject.should.have.property('gameId')
       statisticsObject.gameId.should.equal(gameId)
@@ -64,7 +59,7 @@ describe('getGameStatistics', () => {
     })
 
     it('should return an object with game stats', () => {
-      const statisticsObject = interactors.getGameStatistics(gameId, getGameById)
+      const statisticsObject = interactors.getGameStatistics(getGameById)(gameId)
       statisticsObject.should.be.an('object')
       statisticsObject.should.have.property('gameId')
       statisticsObject.gameId.should.equal(gameId)
@@ -84,7 +79,7 @@ describe('getGameStatistics', () => {
     })
 
     it('should throw an error', () => {
-      const errorfn = () => interactors.getGameStatistics(gameId, getGameById)
+      const errorfn = () => interactors.getGameStatistics(getGameById)(gameId)
       expect(errorfn).to.throw()
     })
   })

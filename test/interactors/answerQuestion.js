@@ -23,11 +23,11 @@ describe('answerQuestion', () => {
 
   let badAnswer
 
-  const badfn = () => interactors.answerQuestion(badAnswer, getGameById, saveGame)
+  const badfn = () => interactors.answerQuestion(getGameById)(saveGame)(badAnswer)
 
   describe('happy path', () => {
     it('should append answer object to the game\'s answers', () => {
-      const updatedGame = interactors.answerQuestion(answer, getGameById, saveGame)
+      const updatedGame = interactors.answerQuestion(getGameById)(saveGame)(answer)
       updatedGame.answers.should.be.an('array')
       updatedGame.answers.should.be.lengthOf(1)
       updatedGame.answers[0].should.equal(answer)
