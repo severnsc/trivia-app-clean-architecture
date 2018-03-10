@@ -1,40 +1,43 @@
 const shortid = require('shortid')
 
-const createGame = questions => ({
-  id: shortid.generate(),
-  questions,
-  submittedAnswers: [],
-  submitAnswer (submittedAnswer) {
-    if(!this.complete){
-      return this.submittedAnswers = [
-        ...this.submittedAnswers,
-        submittedAnswer
-      ]
-    }
-  },
-  get numberCorrect (){
-    return this.submittedAnswers.reduce((total, submittedAnswer) => {
-      const answeredQuestion = this.questions.find(question => question.id == submittedAnswer.questionId)
-      if (submittedAnswer.answer === answeredQuestion.correctAnswer) return total + 1
-    }, 0)
-  },
-  get totalAnswered (){
-    return this.submittedAnswers.length
-  },
-  get complete (){
-    return this.totalAnswered === this.questions.length ? true : false
-  }
-})
+const createQuestion = (category, text, correctAnswer, incorrectAnswers) => {
 
-const createQuestion = (category, text, correctAnswer, incorrectAnswers) => ({
+	if(typeof category !== 'string') {
+		throw new TypeError('category must be a string')
+	}
+
+	if(typeof text !== 'string') {
+		throw new TypeError('text must be a string')
+	}
+
+	if(!['string', 'boolean'].includes(typeof correctAnswer)) {
+		throw new TypeError('correctAnswer must be of type string or boolean')
+	}
+
+	if(!incorrectAnswers instanceof Array) {
+		throw new TypeError('incorrectAnswers must be of type array')
+	}
+
+	if(incorrectAnswers.some(answer => !['string', 'boolean'].includes(typeof answer))){
+		throw new TypeError('incorrectAnswers elements must be of type string or boolean!')
+	}
+
+  return {
+		id: shortid.generate(),
+		category,
+		text,
+		correctAnswer,
+		incorrectAnswers
+  }
+}
+
+const createGame = questionEntities => ({
   id: shortid.generate(),
-  category,
-  text,
-  correctAnswer,
-  incorrectAnswers
+  questions: questionEntities,
+  answers: []
 })
 
 module.exports = {
-  createGame,
-  createQuestion
+  createQuestion,
+  createGame
 }
