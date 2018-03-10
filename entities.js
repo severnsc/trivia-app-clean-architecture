@@ -34,7 +34,8 @@ const createQuestion = (category, text, correctAnswer, incorrectAnswers) => {
 const createGame = questionEntities => ({
   id: shortid.generate(),
   questions: questionEntities,
-  answers: []
+  answers: [],
+  complete: false
 })
 
 module.exports = {

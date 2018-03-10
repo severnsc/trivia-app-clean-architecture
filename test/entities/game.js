@@ -21,5 +21,8 @@ describe('createGame', () => {
     game.should.have.property('answers')
     game.answers.should.be.an('array')
     game.answers.should.have.lengthOf(0)
+    game.should.have.property('complete')
+    game.complete.should.be.a('boolean')
+    game.complete.should.equal(false)
   })
 })
