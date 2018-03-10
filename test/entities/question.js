@@ -4,6 +4,7 @@ const should = chai.should()
 const expect = chai.expect
 
 describe('createQuestion', () => {
+  
   describe('happy path', () => {
     it('should create an object with question properties', () => {
       const category = "foo"
@@ -27,7 +28,9 @@ describe('createQuestion', () => {
       question.incorrectAnswers.should.equal(incorrectAnswers)
     })
   })
+  
   describe('argument problems', () => {
+    
     describe('outer arguments are wrong type', () => {
       it('should thow a TypeError', () => {
         const category = 1
@@ -38,6 +41,7 @@ describe('createQuestion', () => {
         expect(errorfn).to.throw(TypeError)
       })
     })
+    
     describe('incorrectAnswers inner value wrong', () => {
       it('should throw a TypeError', () => {
         const category = "foo"

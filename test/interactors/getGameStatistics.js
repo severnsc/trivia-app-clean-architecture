@@ -3,17 +3,18 @@ const chai = require('chai')
 const should = chai.should()
 const expect = chai.expect
 
-const questions = [
-  {id: "1", category: "Entertainment", text: 'foo', correctAnswer: true, incorrectAnswers: [false]},
-  {id: "2", category: "Entertainment", text: 'bar', correctAnswer: true, incorrectAnswers: [false]}
-]
-
-const answers = [
-  {gameId: "1", questionId: "1", value: true},
-  {gameId: "1", questionId: "2", value: true}
-]
-
 describe('getGameStatistics', () => {
+
+  const questions = [
+    {id: "1", category: "Entertainment", text: 'foo', correctAnswer: true, incorrectAnswers: [false]},
+    {id: "2", category: "Entertainment", text: 'bar', correctAnswer: true, incorrectAnswers: [false]}
+  ]
+
+  const answers = [
+    {gameId: "1", questionId: "1", value: true},
+    {gameId: "1", questionId: "2", value: true}
+  ]
+
   describe('happy path', () => {
     it('should return an object with game stats', () => {
       const gameId = "1"
@@ -32,6 +33,7 @@ describe('getGameStatistics', () => {
       statisticsObject.totalAnswered.should.equal(2)
     })
   })
+  
   describe('alternative happy path', () => {
     it('should return an object with game stats', () => {
       const gameId = "1"
@@ -59,6 +61,7 @@ describe('getGameStatistics', () => {
       statisticsObject.totalAnswered.should.equal(3)
     })
   })
+  
   describe('when getGameById returns an error', () => {
     it('should throw an error', () => {
       const gameId = "1"

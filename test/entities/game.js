@@ -5,10 +5,12 @@ const expect = chai.expect
 
 describe('createGame', () => {
   it('should create an object with the game properties', () => {
+    
     const questions = [
       {id: 1, category: "Entertainment", text: 'foo', correctAnswer: true, incorrectAnswers: [false]},
       {id: 2, category: "Entertainment", text: 'bar', correctAnswer: true, incorrectAnswers: [false]}
     ]
+    
     const game = entities.createGame(questions)
     game.should.be.an('object')
     game.should.have.property('id')

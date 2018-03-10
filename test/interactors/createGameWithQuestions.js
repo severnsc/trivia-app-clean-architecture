@@ -3,14 +3,15 @@ const chai = require('chai')
 const should = chai.should()
 const expect = chai.expect
 
-const questions = [
-  {category: "Entertainment", text: 'foo', correctAnswer: true, incorrectAnswers: [false]},
-  {category: "Entertainment", text: 'bar', correctAnswer: true, incorrectAnswers: [false]}
-]
-
-const getQuestions = () => questions
-
 describe('createGameWithQuestions', () => {
+
+  const questions = [
+    {category: "Entertainment", text: 'foo', correctAnswer: true, incorrectAnswers: [false]},
+    {category: "Entertainment", text: 'bar', correctAnswer: true, incorrectAnswers: [false]}
+  ]
+
+  const getQuestions = () => questions
+
   describe('happy path', () => {
     it('should create game entity populated with questions', () => {
       const game = interactors.createGameWithQuestions(getQuestions)

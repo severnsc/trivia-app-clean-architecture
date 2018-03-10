@@ -3,23 +3,24 @@ const chai = require('chai')
 const should = chai.should()
 const expect = chai.expect
 
-const answer = {
-  gameId: "1",
-  questionId: "1",
-  value: true
-}
-
-const getGameById = () => ({
-  id: "1",
-  questions: [{id: "1", category: "Entertainment", text: 'foo', correctAnswer: true, incorrectAnswers: [false]}],
-  answers: []
-})
-
-const saveGame = () => {
-  console.log('game saved!')
-}
-
 describe('answerQuestion', () => {
+  
+  const answer = {
+    gameId: "1",
+    questionId: "1",
+    value: true
+  }
+
+  const getGameById = () => ({
+    id: "1",
+    questions: [{id: "1", category: "Entertainment", text: 'foo', correctAnswer: true, incorrectAnswers: [false]}],
+    answers: []
+  })
+
+  const saveGame = () => {
+    console.log('game saved!')
+  }
+
   describe('happy path', () => {
     it('should append answer object to the game\'s answers', () => {
       const updatedGame = interactors.answerQuestion(answer, getGameById, saveGame)
