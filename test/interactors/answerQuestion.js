@@ -14,7 +14,8 @@ describe('answerQuestion', () => {
   const getGameById = () => ({
     id: "1",
     questions: [{id: "1", category: "Entertainment", text: 'foo', correctAnswer: true, incorrectAnswers: [false]}],
-    answers: []
+    answers: [],
+    complete: false
   })
 
   const saveGame = () => {
@@ -31,6 +32,7 @@ describe('answerQuestion', () => {
       updatedGame.answers.should.be.an('array')
       updatedGame.answers.should.be.lengthOf(1)
       updatedGame.answers[0].should.equal(answer)
+      updatedGame.complete.should.equal(true)
     })
   })
   describe('misformatted answer object', () => {

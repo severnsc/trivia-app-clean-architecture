@@ -10,21 +10,35 @@ const createGameWithQuestions = getQuestions => {
 }
 
 const answerQuestion = getGameById => {
+  
   return saveGame => {
+    
     return answer => {
+
       if(typeof answer.gameId !== 'string'){
         throw new TypeError('answer.gameId must be a string!')
       }
+
       if(typeof answer.questionId !== 'string'){
         throw new TypeError('answer.questionId must be a string!')
       }
+
       if(!['string', 'boolean'].includes(typeof answer.value)){
         throw new TypeError('answer.value must be a string or boolean!')
       }
+
       const game = getGameById(answer.gameId)
       const updatedGame = Object.assign({}, game, {answers: [...game.answers, answer]})
-      saveGame(updatedGame)
-      return updatedGame
+      
+      if(updatedGame.answers.length === updatedGame.questions.length){
+        const completedGame = Object.assign({}, updatedGame, {complete: true})
+        saveGame(completedGame)
+        return completedGame
+      }else{
+        saveGame(updatedGame)
+        return updatedGame
+      }
+      
     }
   }
 }
