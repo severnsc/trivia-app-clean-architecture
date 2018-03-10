@@ -1,6 +1,7 @@
 const interactors = require('../../interactors')
 const chai = require('chai')
 const should = chai.should()
+const expect = chai.expect
 
 const questions = [
   {id: "1", category: "Entertainment", text: 'foo', correctAnswer: true, incorrectAnswers: [false]},
@@ -56,6 +57,16 @@ describe('getGameStatistics', () => {
       statisticsObject.numberCorrect.should.equal(3)
       statisticsObject.should.have.property('totalAnswered')
       statisticsObject.totalAnswered.should.equal(3)
+    })
+  })
+  describe('when getGameById returns an error', () => {
+    it('should throw an error', () => {
+      const gameId = "1"
+      const getGameById = () => {
+        throw new Error
+      }
+      const errorfn = () => interactors.getGameStatistics(gameId, getGameById)
+      expect(errorfn).to.throw()
     })
   })
 })
