@@ -1,9 +1,11 @@
-const interactors = require('../../interactors')
+const core = require('../../lib')
 const chai = require('chai')
 const should = chai.should()
 const expect = chai.expect
 
 describe('getGameStatistics', () => {
+
+  const getGameStatisticsInteractor = core.getGameStatisticsInteractor
 
   const gameId = "1"
 
@@ -25,7 +27,7 @@ describe('getGameStatistics', () => {
 
   describe('happy path', () => {
     it('should return an object with game stats', () => {
-      const statisticsObject = interactors.getGameStatistics(getGameById)(gameId)
+      const statisticsObject = getGameStatisticsInteractor(getGameById)(gameId)
       statisticsObject.should.be.an('object')
       statisticsObject.should.have.property('gameId')
       statisticsObject.gameId.should.equal(gameId)
@@ -59,7 +61,7 @@ describe('getGameStatistics', () => {
     })
 
     it('should return an object with game stats', () => {
-      const statisticsObject = interactors.getGameStatistics(getGameById)(gameId)
+      const statisticsObject = getGameStatisticsInteractor(getGameById)(gameId)
       statisticsObject.should.be.an('object')
       statisticsObject.should.have.property('gameId')
       statisticsObject.gameId.should.equal(gameId)
@@ -79,7 +81,7 @@ describe('getGameStatistics', () => {
     })
 
     it('should throw an error', () => {
-      const errorfn = () => interactors.getGameStatistics(getGameById)(gameId)
+      const errorfn = () => getGameStatisticsInteractor(getGameById)(gameId)
       expect(errorfn).to.throw()
     })
   })

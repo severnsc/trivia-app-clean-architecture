@@ -1,9 +1,11 @@
-const interactors = require('../../interactors')
+const core = require('../../lib')
 const chai = require('chai')
 const should = chai.should()
 const expect = chai.expect
 
 describe('answerQuestion', () => {
+
+  const answerQuestionInteractor = core.answerQuestionInteractor
   
   const answer = {
     gameId: "1",
@@ -24,11 +26,11 @@ describe('answerQuestion', () => {
 
   let badAnswer
 
-  const badfn = () => interactors.answerQuestion(getGameById)(saveGame)
+  const badfn = () => answerQuestionInteractor(getGameById)(saveGame)
 
   describe('happy path', () => {
     it('should append answer object to the game\'s answers', () => {
-      const updatedGame = interactors.answerQuestion(getGameById)(saveGame)(answer)
+      const updatedGame = answerQuestionInteractor(getGameById)(saveGame)(answer)
       updatedGame.answers.should.be.an('array')
       updatedGame.answers.should.be.lengthOf(1)
       updatedGame.answers[0].should.equal(answer)
