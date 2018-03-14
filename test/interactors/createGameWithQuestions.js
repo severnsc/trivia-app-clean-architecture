@@ -26,8 +26,11 @@ describe('createGameWithQuestions', () => {
       game.should.be.an('object')
       game.should.have.property('questions')
       game.questions.should.not.equal(questions)
-      game.questions[0].should.have.property('id')
-      game.questions[0].id.should.be.a('string')
+      game.questions.should.equal(questionEntities)
+      game.questions.forEach(question => {
+        question.should.have.property('id')
+        question.id.should.be.a('string')
+      })
     })
   })
   describe('when getQuestions returns error', () => {
