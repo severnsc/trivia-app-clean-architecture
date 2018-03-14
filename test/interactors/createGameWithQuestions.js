@@ -8,11 +8,15 @@ describe('createGameWithQuestions', () => {
   const createGameInteractor = core.createGameInteractor
 
   const questions = [
-    {category: "Entertainment", text: 'foo', correctAnswer: true, incorrectAnswers: [false]},
-    {category: "Entertainment", text: 'bar', correctAnswer: true, incorrectAnswers: [false]}
+    {category: "Entertainment", question: 'foo', correct_answer: "True", incorrect_answers: ["False"]},
+    {category: "Entertainment", question: 'bar', correct_answer: "True", incorrect_answers: ["False"]}
   ]
 
-  const getQuestions = () => questions
+  const questionEntities = questions.map(question => {
+    return core.createQuestionEntity(question.category, question.question, question.correct_answer, question.incorrect_answers)
+  })
+
+  const getQuestions = () => questionEntities
 
   const createGame = () => console.log('game created!')
 

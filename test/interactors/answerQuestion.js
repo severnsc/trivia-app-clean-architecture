@@ -10,12 +10,12 @@ describe('answerQuestion', () => {
   const answer = {
     gameId: "1",
     questionId: "1",
-    value: true
+    value: "True"
   }
 
   const getGameById = () => ({
     id: "1",
-    questions: [{id: "1", category: "Entertainment", text: 'foo', correctAnswer: true, incorrectAnswers: [false]}],
+    questions: [{id: "1", category: "Entertainment", text: 'foo', correctAnswer: "True", incorrectAnswers: ["False"]}],
     answers: [],
     complete: false
   })

@@ -10,13 +10,13 @@ describe('getGameStatistics', () => {
   const gameId = "1"
 
   const questions = [
-    {id: "1", category: "Entertainment", text: 'foo', correctAnswer: true, incorrectAnswers: [false]},
-    {id: "2", category: "Entertainment", text: 'bar', correctAnswer: true, incorrectAnswers: [false]}
+    {id: "1", category: "Entertainment", text: 'foo', correctAnswer: "True", incorrectAnswers: ["False"]},
+    {id: "2", category: "Entertainment", text: 'bar', correctAnswer: "True", incorrectAnswers: ["False"]}
   ]
 
   const answers = [
-    {gameId: "1", questionId: "1", value: true},
-    {gameId: "1", questionId: "2", value: true}
+    {gameId: "1", questionId: "1", value: "True"},
+    {gameId: "1", questionId: "2", value: "True"}
   ]
 
   let getGameById = () => ({
@@ -49,13 +49,13 @@ describe('getGameStatistics', () => {
             id: "3", 
             category: "Entertainment", 
             text: "baz", 
-            correctAnswer: true, 
-            incorrectAnswers: [false]
+            correctAnswer: "True", 
+            incorrectAnswers: ["False"]
           }
         ],
         answers: [
           ...answers,
-          {gameId: "1", questionId: "3", value: true}
+          {gameId: "1", questionId: "3", value: "True"}
         ]
       })
     })
