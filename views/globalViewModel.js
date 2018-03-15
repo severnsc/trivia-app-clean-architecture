@@ -14,6 +14,37 @@ const game = (id, currentQuestionModel) => {
   }
 }
 
+const completedGame = (id, questions, answers, totalCorrect, totalAnswered) => {
+
+  if(typeof id !== 'string'){
+    throw new TypeError('id must be of type string!')
+  }
+
+  if(!questions instanceof Array){
+    throw new TypeError('questions must be of type array!')
+  }
+
+  if(!answers instanceof Array){
+    throw new TypeError('answers must be of type array!') 
+  }
+
+  if(typeof totalCorrect !== 'number'){
+    throw new TypeError('totalCorrect must be of type number!')
+  }
+
+  if(typeof totalAnswered !== 'number'){
+    throw new TypeError('totalAnswered must be of type number!')
+  }
+
+  return {
+    id,
+    questions,
+    answers,
+    totalCorrect,
+    totalAnswered
+  }
+}
+
 const currentQuestion = (questionCategory, questionText, answers, questionNumber) => {
   
   if(typeof questionCategory !== 'string'){
@@ -46,5 +77,6 @@ const currentQuestion = (questionCategory, questionText, answers, questionNumber
 
 module.exports = {
   game,
-  currentQuestion
+  currentQuestion,
+  completedGame
 }
