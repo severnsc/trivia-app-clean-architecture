@@ -1,4 +1,4 @@
-const globalCompose = require('../globalViewCompose')
+const globalCompose = require('../globalCompose')
 const testStorageAdapter = require('../../adapters/testStorageAdapter')
 const core = require('../../lib')
 
