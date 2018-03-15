@@ -16,13 +16,13 @@ describe('createGameWithQuestions', () => {
     return core.createQuestionEntity(question.category, question.question, question.correct_answer, question.incorrect_answers)
   })
 
-  const getQuestions = () => questionEntities
+  const getQuestions = () => Promise.resolve(questionEntities)
 
   const createGame = () => console.log('game created!')
 
   describe('happy path', () => {
-    it('should create game entity populated with questions', () => {
-      const game = createGameInteractor(getQuestions)(createGame)()
+    it('should create game entity populated with questions', async () => {
+      const game = await createGameInteractor(getQuestions)(createGame)()
       game.should.be.an('object')
       game.should.have.property('questions')
       game.questions.should.not.equal(questions)
@@ -34,10 +34,10 @@ describe('createGameWithQuestions', () => {
     })
   })
   describe('when getQuestions returns error', () => {
-    it('should throw an error', () => {
-      const getQuestionsError = () => {throw new Error}
-      const errorfn = () => createGameInteractor(getQuestionsError)(createGame)()
-      expect(errorfn).to.throw()
+    it('should throw an error', async () => {
+      const getQuestionsError = async () => {throw new Error}
+      const errorfn = async () => await createGameInteractor(getQuestionsError)(createGame)().catch(err => err)
+      errorfn().catch(err => expect(err).to.be.a('string'))
     })
   })
 })
