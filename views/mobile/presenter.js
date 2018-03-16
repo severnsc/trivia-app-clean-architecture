@@ -1,4 +1,4 @@
-const globalViewModel = require('../globalViewModel')
+import * as globalViewModel from '../globalViewModel'
 
 const getGameModel = game => {
   const questionsIndex = game.answers.length
@@ -22,7 +22,7 @@ const getGameModel = game => {
   return gameModel
 }
 
-const createGamePresenter = createGameAsync => {
+export const createGamePresenter = createGameAsync => {
   return async () => {
     const game = await createGameAsync().catch(err => {throw new Error})
     const gameModel = getGameModel(game)
@@ -30,7 +30,7 @@ const createGamePresenter = createGameAsync => {
   }
 }
 
-const answerQuestionPresenter = dispatchAnswerQuestion => {
+export const answerQuestionPresenter = dispatchAnswerQuestion => {
   return getGameStatistics => {
     return answer => {
       const updatedGame = dispatchAnswerQuestion(answer)
@@ -62,9 +62,4 @@ const answerQuestionPresenter = dispatchAnswerQuestion => {
       }
     }
   }
-}
-
-module.exports = {
-  createGamePresenter,
-  answerQuestionPresenter
 }
