@@ -1,6 +1,10 @@
 import React from 'react';
-import RootNavigator from './navigation'
+import { RootNavigator, setTopLevelNavigator} from './navigation'
 
 export default App = () => (
-  <RootNavigator />
+  <RootNavigator 
+    ref={navigatorRef => {
+      setTopLevelNavigator(navigatorRef)
+    }}
+  />
 )
