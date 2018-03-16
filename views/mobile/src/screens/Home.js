@@ -4,9 +4,11 @@ import { H1, CenteredText } from '../components/common/Typography'
 import Button from '../components/common/Button'
 import Card from '../components/common/Card'
 
-const Home = ({navigation, resetQuestionNumber, resetAnsweredQuestions}) => {
+const Home = ({createGame}) => {
   
-  const handlePress = () => {}
+  const handlePress = () => {
+    createGame()
+  }
 
   return (
     <Container>
