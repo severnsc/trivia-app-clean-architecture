@@ -1,4 +1,3 @@
-const compose = require('./compose')
 const globalViewModel = require('../globalViewModel')
 
 const getGameModel = game => {
@@ -23,43 +22,49 @@ const getGameModel = game => {
   return gameModel
 }
 
-const createGame = async () => {
-  const game = await compose.createGame()
-  const gameModel = getGameModel(game)
-  return gameModel
-}
-
-const answerQuestion = answer => {
-  const updatedGame = compose.answerQuestion(answer)
-  
-  if(updatedGame.complete){
-    
-    const questions = updatedGame.questions.map(question => ({
-      question.text,
-      question.correctAnswer
-    })
-    
-    const answers = updatedGame.answers.map(a => a.value)
-    const gameStatistics = compose.getGameStatistics(updatedGame.id)
-    const { totalCorrect, totalAnswered } = gameStatistics
-    
-    const completedGameModel = globalViewModel.completedGame(
-      updatedGame.id,
-      questions,
-      answers,
-      totalCorrect,
-      totalAnswered
-    )
-    
-    return completedGameModel
-  
-  }else{
-    const gameModel = getGameModel(updatedGame)
+const createGamePresenter = createGameAsync => {
+  return async () => {
+    const game = await createGameAsync().catch(err => {throw new Error})
+    const gameModel = getGameModel(game)
     return gameModel
   }
 }
 
+const answerQuestionPresenter = dispatchAnswerQuestion => {
+  return getGameStatistics => {
+    return answer => {
+      const updatedGame = dispatchAnswerQuestion(answer)
+
+      if(updatedGame.complete){
+        
+        const questions = updatedGame.questions.map(question => ({
+          text: question.text,
+          correctAnswer: question.correctAnswer
+        }))
+        
+        const answers = updatedGame.answers.map(a => a.value)
+        const gameStatistics = getGameStatistics(updatedGame.id)
+        const { totalCorrect, totalAnswered } = gameStatistics
+        
+        const completedGameModel = globalViewModel.completedGame(
+          updatedGame.id,
+          questions,
+          answers,
+          totalCorrect,
+          totalAnswered
+        )
+        
+        return completedGameModel
+      
+      }else{
+        const gameModel = getGameModel(updatedGame)
+        return gameModel
+      }
+    }
+  }
+}
+
 module.exports = {
-  createGame,
-  answerQuestion
+  createGamePresenter,
+  answerQuestionPresenter
 }

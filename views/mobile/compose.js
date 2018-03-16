@@ -1,17 +1,29 @@
-const globalCompose = require('../globalCompose')
-const testStorageAdapter = require('../../adapters/testStorageAdapter')
-const core = require('../../lib')
+import { createGameWithQuestions } from '../globalCompose'
 
-const createGameAdapter = testStorageAdapter.createGame
-const getGameById = testStorageAdapter.getGameById
-const updateGame = testStorageAdapter.updateGame
+import {
+  createGameAdapter,
+  getGameByIdAdapter,
+  updateGameAdapter
+} from '../../adapters/testStorageAdapter'
 
-const createGame = globalCompose.createGameWithQuestions(createGameAdapter)
-const answerQuestion = core.answerQuestionInteractor(getGameById)(updateGame)
-const getGameStatistics = core.getGameStatisticsInteractor(getGameById)
+import {
+  answerQuestionInteractor,
+  getGameStatisticsInteractor
+} from '../../lib'
+
+import {
+  createGamePresenter,
+  answerQuestionPresenter
+} from './presenter'
+
+const createGameAsync = createGameWithQuestions(createGameAdapter)
+const dispatchAnswerQuestion = answerQuestionInteractor(getGameByIdAdapter)(updateGameAdapter)
+const dispatchGetGameStatistics = getGameStatisticsInteractor(getGameByIdAdapter)
+
+const createGame = createGamePresenter(createGameAsync)
+const answerQuestion = answerQuestionPresenter(dispatchAnswerQuestion, dispatchGetGameStatistics)
 
 module.exports = {
   createGame,
-  answerQuestion,
-  getGameStatistics
+  answerQuestion
 }
