@@ -12,6 +12,7 @@ const getGameModel = game => {
   const currentQuestionNumber = questionsIndex + 1
  
   const currentQuestionModel = globalViewModel.currentQuestion(
+    currentQuestion.id,
     currentQuestion.category,
     currentQuestion.text,
     answers,
@@ -24,6 +25,7 @@ const getGameModel = game => {
 
 const getCompletedGameModel = (updatedGame, getGameStatistics) => {
   const questions = updatedGame.questions.map(question => ({
+    id: question.id,
     text: question.text,
     correctAnswer: question.correctAnswer
   }))

@@ -18,6 +18,7 @@ describe('createGame', () => {
       expect(typeof gameModel).toBe('object')
       expect(typeof gameModel.currentQuestionModel).toBe('object')
       const currentQuestionModel = gameModel.currentQuestionModel
+      expect(currentQuestionModel.id).toBe("1")
       expect(currentQuestionModel.questionCategory).toBe("Entertainment")
       expect(currentQuestionModel.questionText).toBe("foo")
       expect(currentQuestionModel.answers).toEqual(["False", "True"])
@@ -43,6 +44,7 @@ describe('answerQuestion', () => {
       expect(typeof gameModel).toBe('object')
       expect(typeof gameModel.currentQuestionModel).toBe('object')
       const currentQuestionModel = gameModel.currentQuestionModel
+      expect(currentQuestionModel.id).toBe("2")
       expect(currentQuestionModel.questionCategory).toBe('Entertainment')
       expect(currentQuestionModel.questionText).toBe('bar')
       expect(currentQuestionModel.answers).toEqual(["False", "True"])
@@ -64,6 +66,9 @@ describe('answerQuestion', () => {
       expect(completedGameModel.questions).toBeInstanceOf(Array)
       completedGameModel.questions.forEach(question => {
         expect(typeof question).toBe('object')
+        expect(typeof question.id).toBe('string')
+        expect(typeof question.text).toBe('string')
+        expect(typeof question.correctAnswer).toBe('string')
       })
       expect(completedGameModel.answers).toBeInstanceOf(Array)
       completedGameModel.answers.forEach(answer => {

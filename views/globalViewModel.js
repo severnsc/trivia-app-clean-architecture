@@ -45,8 +45,12 @@ const completedGame = (id, questions, answers, totalCorrect, totalAnswered) => {
   }
 }
 
-const currentQuestion = (questionCategory, questionText, answers, questionNumber) => {
+const currentQuestion = (id, questionCategory, questionText, answers, questionNumber) => {
   
+  if(typeof id !== 'string'){
+    throw new TypeError('id must be of type string!')
+  }
+
   if(typeof questionCategory !== 'string'){
     throw new TypeError('questionCategory must be of type string!')
   }
@@ -68,6 +72,7 @@ const currentQuestion = (questionCategory, questionText, answers, questionNumber
   }
 
   return {
+    id,
     questionCategory,
     questionText,
     answers,
