@@ -22,6 +22,26 @@ const getGameModel = game => {
   return gameModel
 }
 
+const getCompletedGameModel = (updatedGame, getGameStatistics) => {
+  const questions = updatedGame.questions.map(question => ({
+    text: question.text,
+    correctAnswer: question.correctAnswer
+  }))
+  
+  const answers = updatedGame.answers.map(a => a.value)
+  const gameStatistics = getGameStatistics(updatedGame.id)
+  const { totalCorrect, totalAnswered } = gameStatistics
+  
+  const completedGameModel = globalViewModel.completedGame(
+    updatedGame.id,
+    questions,
+    answers,
+    totalCorrect,
+    totalAnswered
+  )
+  return completedGameModel
+}
+
 export const createGamePresenter = createGameAsync => {
   return async () => {
     const game = await createGameAsync().catch(err => {throw new Error})
@@ -36,24 +56,7 @@ export const answerQuestionPresenter = dispatchAnswerQuestion => {
       const updatedGame = dispatchAnswerQuestion(answer)
 
       if(updatedGame.complete){
-        
-        const questions = updatedGame.questions.map(question => ({
-          text: question.text,
-          correctAnswer: question.correctAnswer
-        }))
-        
-        const answers = updatedGame.answers.map(a => a.value)
-        const gameStatistics = getGameStatistics(updatedGame.id)
-        const { totalCorrect, totalAnswered } = gameStatistics
-        
-        const completedGameModel = globalViewModel.completedGame(
-          updatedGame.id,
-          questions,
-          answers,
-          totalCorrect,
-          totalAnswered
-        )
-        
+        const completedGameModel = getCompletedGameModel(updatedGame, getGameStatistics)
         return completedGameModel
       
       }else{
