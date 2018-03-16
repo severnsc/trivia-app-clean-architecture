@@ -1,7 +1,6 @@
 import React from 'react';
-import Home from './src/screens/Home'
-import { createGame } from './compose'
+import RootNavigator from './navigation'
 
 export default App = () => (
-  <Home createGame={createGame} />
+  <RootNavigator />
 )
