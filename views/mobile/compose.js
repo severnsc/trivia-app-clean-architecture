@@ -20,10 +20,5 @@ const createGameAsync = createGameWithQuestions(createGameAdapter)
 const dispatchAnswerQuestion = answerQuestionInteractor(getGameByIdAdapter)(updateGameAdapter)
 const dispatchGetGameStatistics = getGameStatisticsInteractor(getGameByIdAdapter)
 
-const createGame = createGamePresenter(createGameAsync)
-const answerQuestion = answerQuestionPresenter(dispatchAnswerQuestion, dispatchGetGameStatistics)
-
-module.exports = {
-  createGame,
-  answerQuestion
-}
+export const createGame = createGamePresenter(createGameAsync)
+export const answerQuestion = answerQuestionPresenter(dispatchAnswerQuestion, dispatchGetGameStatistics)
