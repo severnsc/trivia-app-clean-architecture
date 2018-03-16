@@ -1,12 +1,12 @@
 let games = []
 
-const createGame = game => games = [...games, game]
+const createGameAdapter = game => games = [...games, game]
 
-const getGameById = id => {
+const getGameByIdAdapter = id => {
   return games.find(game => game.id === id)
 }
 
-const updateGame = updatedGame => {
+const updateGameAdapter = updatedGame => {
   return games = games.map(game => {
     return updatedGame.id === game.id
     ? updatedGame
@@ -15,7 +15,7 @@ const updateGame = updatedGame => {
 }
 
 module.exports = {
-  createGame,
-  getGameById,
-  updateGame
+  createGameAdapter,
+  getGameByIdAdapter,
+  updateGameAdapter
 }
