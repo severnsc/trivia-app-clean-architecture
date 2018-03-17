@@ -1,7 +1,7 @@
 import { StackNavigator, NavigationActions } from 'react-navigation'
 import HomeScreenContainer from './src/containers/HomeScreenContainer'
 import QuizScreenContainer from './src/containers/QuizScreenContainer'
-import Results from './src/screens/Results'
+import ResultsScreenContainer from './src/containers/ResultsScreenContainer'
 
 export const RootNavigator = StackNavigator({
   Home: {
@@ -14,7 +14,7 @@ export const RootNavigator = StackNavigator({
     screen: QuizScreenContainer
   },
   Results: {
-    screen: Results,
+    screen: ResultsScreenContainer,
     navigationOptions: () => ({
       header: null
     })
@@ -30,16 +30,21 @@ export const setTopLevelNavigator = navigatorRef => {
   _navigator = navigatorRef;
 }
 
-const navigate = (routeName, params) => {
+const navigate = routeName => {
   _navigator.dispatch(
     NavigationActions.navigate({
       type: NavigationActions.NAVIGATE,
-      routeName,
-      params,
+      routeName
     })
   );
 }
 
-export const navigateToHome = () => navigate('Home', {})
-export const navigateToQuiz = () => navigate('Quiz', {})
-export const navigateToResults = () => navigate('Results', {})
+export const resetNav = () => {
+  _navigator.dispatch(
+    NavigationActions.popToTop()
+  )
+}
+
+export const navigateToHome = () => navigate('Home')
+export const navigateToQuiz = () => navigate('Quiz')
+export const navigateToResults = () => navigate('Results')

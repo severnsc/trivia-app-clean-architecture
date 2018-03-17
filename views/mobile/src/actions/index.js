@@ -30,7 +30,7 @@ export const updateViewModel = viewModel => {
 
 export const createGameAsync = () => {
   return (dispatch, getState) => {
-    dispatch(toggleLoading())
+    if (!getState().loading) dispatch(toggleLoading())
     navigateToQuiz()
     createGame().then(gameModel => {
       dispatch(updateViewModel(gameModel))
@@ -45,19 +45,18 @@ export const submitAnswer = answer => {
     const questionId = getState().viewModel.currentQuestionModel.id
     const answerModel = createAnswerModel(gameId, questionId, answer)
     const gameModel = answerQuestion(answerModel)
-    dispatch(toggleLoading())
+    if (!getState().loading) dispatch(toggleLoading())
     dispatch(updateViewModel(gameModel))
     if (gameModel.complete){
       navigateToResults()
     }else{
-      dispatch(toggleLoading())
+      if (getState().loading) dispatch(toggleLoading())
     }
   }
 }
 
 export const restartGame = () => {
-  return dispatch => {
+  return (dispatch, getState) => {
     resetNav()
-    dispatch(toggleLoading())
   }
 }
