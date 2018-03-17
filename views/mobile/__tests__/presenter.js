@@ -42,6 +42,7 @@ describe('answerQuestion', () => {
       const getGameStatistics = () => {}
       const gameModel = answerQuestionPresenter(dispatchAnswerQuestion)(getGameStatistics)(answer)
       expect(typeof gameModel).toBe('object')
+      expect(gameModel.complete).toBe(false)
       expect(typeof gameModel.currentQuestionModel).toBe('object')
       const currentQuestionModel = gameModel.currentQuestionModel
       expect(currentQuestionModel.id).toBe("2")
@@ -63,16 +64,14 @@ describe('answerQuestion', () => {
       })
       const completedGameModel = answerQuestionPresenter(dispatchAnswerQuestion)(getGameStatistics)(answer)
       expect(typeof completedGameModel).toBe('object')
-      expect(completedGameModel.questions).toBeInstanceOf(Array)
-      completedGameModel.questions.forEach(question => {
+      expect(completedGameModel.complete).toBe(true)
+      expect(completedGameModel.answeredQuestions).toBeInstanceOf(Array)
+      completedGameModel.answeredQuestions.forEach(question => {
         expect(typeof question).toBe('object')
         expect(typeof question.id).toBe('string')
         expect(typeof question.text).toBe('string')
         expect(typeof question.correctAnswer).toBe('string')
-      })
-      expect(completedGameModel.answers).toBeInstanceOf(Array)
-      completedGameModel.answers.forEach(answer => {
-        expect(typeof answer).toBe('string')
+        expect(typeof question.userAnswer).toBe('string')
       })
       expect(completedGameModel.totalCorrect).toBe(2)
       expect(completedGameModel.totalAnswered).toBe(2)

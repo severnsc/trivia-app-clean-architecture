@@ -1,4 +1,4 @@
-const game = (id, currentQuestionModel) => {
+const game = (id, currentQuestionModel, complete) => {
 
   if(typeof id !== 'string'){
     throw new TypeError('id must be of type string!')
@@ -8,40 +8,45 @@ const game = (id, currentQuestionModel) => {
     throw new TypeError('currentQuestionModel must be of type object!')
   }
 
+  if(typeof complete !== 'boolean'){
+    throw new TypeError('complete must be of type boolean!')
+  }
+
   return {
     id,
-    currentQuestionModel
+    currentQuestionModel,
+    complete
   }
 }
 
-const completedGame = (id, questions, answers, totalCorrect, totalAnswered) => {
+const completedGame = (id, answeredQuestions, totalCorrect, totalAnswered, complete) => {
 
   if(typeof id !== 'string'){
     throw new TypeError('id must be of type string!')
   }
 
-  if(!questions instanceof Array){
-    throw new TypeError('questions must be of type array!')
-  }
-
-  if(!answers instanceof Array){
-    throw new TypeError('answers must be of type array!') 
+  if(!answeredQuestions instanceof Array){
+    throw new TypeError('answeredQuestions must be of type array!')
   }
 
   if(typeof totalCorrect !== 'number'){
-    throw new TypeError('totalCorrect must be of type number!')
+    throw new TypeError('totalCorrect must be of type number! Got ' + typeof totalCorrect)
   }
 
   if(typeof totalAnswered !== 'number'){
     throw new TypeError('totalAnswered must be of type number!')
   }
 
+  if(typeof complete !== 'boolean'){
+    throw new TypeError('complete must be of type boolean!')
+  }
+
   return {
     id,
-    questions,
-    answers,
+    answeredQuestions,
     totalCorrect,
-    totalAnswered
+    totalAnswered,
+    complete
   }
 }
 
