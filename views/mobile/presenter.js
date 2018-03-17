@@ -19,7 +19,11 @@ const getGameModel = game => {
     currentQuestionNumber
   )
   
-  const gameModel = globalViewModel.game(game.id, currentQuestionModel)
+  const gameModel = globalViewModel.game(
+    game.id,
+    currentQuestionModel,
+    game.complete
+  )
   return gameModel
 }
 
@@ -30,16 +34,22 @@ const getCompletedGameModel = (updatedGame, getGameStatistics) => {
     correctAnswer: question.correctAnswer
   }))
   
-  const answers = updatedGame.answers.map(a => a.value)
+  const answers = updatedGame.answers
+  const answeredQuestions = questions.map(question => {
+    const userAnswer = answers.find(answer => 
+      answer.questionId === question.id
+    )
+    return Object.assign({}, question, {userAnswer: userAnswer.value})
+  })
   const gameStatistics = getGameStatistics(updatedGame.id)
   const { totalCorrect, totalAnswered } = gameStatistics
   
   const completedGameModel = globalViewModel.completedGame(
     updatedGame.id,
-    questions,
-    answers,
+    answeredQuestions,
     totalCorrect,
-    totalAnswered
+    totalAnswered,
+    updatedGame.complete
   )
   return completedGameModel
 }
