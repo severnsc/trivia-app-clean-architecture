@@ -8,6 +8,8 @@ const getGameModel = game => {
     ...currentQuestion.incorrectAnswers,
     currentQuestion.correctAnswer
   ]
+
+  const sortedAnswers = answers.slice().sort().reverse()
  
   const currentQuestionNumber = questionsIndex + 1
  
@@ -15,7 +17,7 @@ const getGameModel = game => {
     currentQuestion.id,
     currentQuestion.category,
     currentQuestion.text,
-    answers,
+    sortedAnswers,
     currentQuestionNumber
   )
   
