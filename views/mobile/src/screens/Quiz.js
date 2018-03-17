@@ -23,7 +23,7 @@ const Quiz = ({loading, category, questionText, answers, questionNumber, answerQ
       <H1>{category}</H1>
       <QuestionCard question={entities.decodeHTML(questionText)} />
       {answers.map(answer => {
-        return <Button onPress={() => handlePress(answer)} title={answer} />
+        return <Button key={answer} onPress={() => handlePress(answer)} title={answer} />
       })}
       <CenteredText>{questionNumber} of 10</CenteredText>
     </Container>

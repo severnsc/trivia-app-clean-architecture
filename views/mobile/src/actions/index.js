@@ -1,4 +1,9 @@
-import { createGame, answerQuestion } from '../../compose'
+import {
+  createGame,
+  answerQuestion,
+  createAnswerModel
+} from '../../compose'
+
 import { navigateToQuiz } from '../../navigation'
 
 export const TOGGLE_LOADING = "TOGGLE_LOADING"
@@ -21,8 +26,8 @@ export const updateViewModel = viewModel => {
 
 export const createGameAsync = () => {
   return dispatch => {
-    navigateToQuiz()
     dispatch(toggleLoading())
+    navigateToQuiz()
     createGame().then(gameModel => {
       dispatch(updateViewModel(gameModel))
       dispatch(toggleLoading())
@@ -32,12 +37,11 @@ export const createGameAsync = () => {
 
 export const submitAnswer = answer => {
   return (dispatch, getState) => {
-    const answerModel = {
-      gameId: getState().viewModel.id,
-      questionId: getState().viewModel.currentQuestionModel.id,
-      value: answer
-    }
+    const gameId = getState().viewModel.id
+    const questionId = getState().viewModel.currentQuestionModel.id
+    const answerModel = createAnswerModel(gameId, questionId, answer)
     const gameModel = answerQuestion(answerModel)
+    console.log(gameModel)
     dispatch(updateViewModel(gameModel))
   }
 }

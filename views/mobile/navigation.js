@@ -1,6 +1,6 @@
 import { StackNavigator, NavigationActions } from 'react-navigation'
 import HomeScreenContainer from './src/containers/HomeScreenContainer'
-import Quiz from './src/screens/Quiz'
+import QuizScreenContainer from './src/containers/QuizScreenContainer'
 import Results from './src/screens/Results'
 
 export const RootNavigator = StackNavigator({
@@ -11,7 +11,7 @@ export const RootNavigator = StackNavigator({
     })
   },
   Quiz: {
-    screen: Quiz
+    screen: QuizScreenContainer
   },
   Results: {
     screen: Results,
