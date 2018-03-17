@@ -80,8 +80,30 @@ const currentQuestion = (id, questionCategory, questionText, answers, questionNu
   }
 }
 
+const answer = (gameId, questionId, value) => {
+
+  if(typeof gameId !== "string"){
+    throw new TypeError('gameId must be of type string!')
+  }
+
+  if(typeof questionId !== 'string'){
+    throw new TypeError('questionId must be of type string!')
+  }
+
+  if(typeof value !== 'string'){
+    throw new TypeError('value must be of type string!')
+  }
+
+  return  {
+    gameId,
+    questionId,
+    value
+  }
+}
+
 module.exports = {
   game,
   currentQuestion,
-  completedGame
+  completedGame,
+  answer
 }
