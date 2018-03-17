@@ -4,8 +4,9 @@ import Container from '../components/common/Container'
 import QuestionCard from '../components/QuestionCard'
 import { H1, CenteredText } from '../components/common/Typography'
 import Button from '../components/common/Button'
+import entities from 'entities'
 
-const Quiz = ({navigation, loading, questions, questionNumber, incrementQuestionNumber, answerQuestion, disabled, toggleDisabled}) => {
+const Quiz = ({loading, category, questionText, answers, questionNumber, answerQuestion}) => {
 
   if(loading){
     return(
@@ -15,16 +16,15 @@ const Quiz = ({navigation, loading, questions, questionNumber, incrementQuestion
     )
   }
 
-  const currentQuestion = questions[questionNumber - 1]
-
-  const handlePress = string => {}
+  const handlePress = answer => answerQuestion(answer)
 
   return(
     <Container>
-      <H1>{currentQuestion.category}</H1>
-      <QuestionCard question={entities.decodeHTML(currentQuestion.questionText)} />
-      <Button disabled={disabled} onPress={() => handlePress("True")} title={"TRUE"} />
-      <Button disabled={disabled} onPress={() => handlePress("False")} title={"FALSE"} />
+      <H1>{category}</H1>
+      <QuestionCard question={entities.decodeHTML(questionText)} />
+      {answers.map(answer => {
+        return <Button onPress={() => handlePress(answer)} title={answer} />
+      })}
       <CenteredText>{questionNumber} of 10</CenteredText>
     </Container>
   )
