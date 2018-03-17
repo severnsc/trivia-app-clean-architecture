@@ -7,7 +7,7 @@ import entities from "entities"
 const resultsListItem = ({item, index}) => (
   <View>
     <Text>
-      {index + 1}. {entities.decodeHTML(item.questionText)}
+      {index + 1}. {entities.decodeHTML(item.text)}
     </Text>
     <Text>
       You answered: {item.userAnswer} | Correct answer: {item.correctAnswer}

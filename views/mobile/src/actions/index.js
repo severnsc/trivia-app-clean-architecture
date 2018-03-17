@@ -4,7 +4,11 @@ import {
   createAnswerModel
 } from '../../compose'
 
-import { navigateToQuiz } from '../../navigation'
+import {
+  navigateToQuiz,
+  navigateToResults,
+  resetNav
+} from '../../navigation'
 
 export const TOGGLE_LOADING = "TOGGLE_LOADING"
 export const UPDATE_VIEW_MODEL = "UPDATE_VIEW_MODEL"
@@ -25,7 +29,7 @@ export const updateViewModel = viewModel => {
 //Async actions
 
 export const createGameAsync = () => {
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch(toggleLoading())
     navigateToQuiz()
     createGame().then(gameModel => {
@@ -41,7 +45,19 @@ export const submitAnswer = answer => {
     const questionId = getState().viewModel.currentQuestionModel.id
     const answerModel = createAnswerModel(gameId, questionId, answer)
     const gameModel = answerQuestion(answerModel)
-    console.log(gameModel)
+    dispatch(toggleLoading())
     dispatch(updateViewModel(gameModel))
+    if (gameModel.complete){
+      navigateToResults()
+    }else{
+      dispatch(toggleLoading())
+    }
+  }
+}
+
+export const restartGame = () => {
+  return dispatch => {
+    resetNav()
+    dispatch(toggleLoading())
   }
 }
