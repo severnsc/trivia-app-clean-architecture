@@ -1,11 +1,11 @@
 import { StackNavigator, NavigationActions } from 'react-navigation'
-import Home from './src/screens/Home'
+import HomeScreenContainer from './src/containers/HomeScreenContainer'
 import Quiz from './src/screens/Quiz'
 import Results from './src/screens/Results'
 
 export const RootNavigator = StackNavigator({
   Home: {
-    screen: Home,
+    screen: HomeScreenContainer,
     navigationOptions: () => ({
       header: null
     })
