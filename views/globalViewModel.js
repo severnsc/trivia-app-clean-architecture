@@ -1,15 +1,17 @@
+const utils = require('../utils')
+
 const game = (id, currentQuestionModel, complete) => {
 
   if(typeof id !== 'string'){
-    throw new TypeError('id must be of type string!')
+    throw new TypeError(utils.constructErrorMessage('id', 'string', id))
   }
 
   if(typeof currentQuestionModel !== 'object'){
-    throw new TypeError('currentQuestionModel must be of type object!')
+    throw new TypeError(utils.constructErrorMessage('currentQuestionModel', 'object', currentQuestionModel))
   }
 
   if(typeof complete !== 'boolean'){
-    throw new TypeError('complete must be of type boolean!')
+    throw new TypeError(utils.constructErrorMessage('complete', 'boolean', complete))
   }
 
   return {
@@ -22,23 +24,23 @@ const game = (id, currentQuestionModel, complete) => {
 const completedGame = (id, answeredQuestions, totalCorrect, totalAnswered, complete) => {
 
   if(typeof id !== 'string'){
-    throw new TypeError('id must be of type string!')
+    throw new TypeError(utils.constructErrorMessage('id', 'string', id))
   }
 
   if(!answeredQuestions instanceof Array){
-    throw new TypeError('answeredQuestions must be of type array!')
+    throw new TypeError(utils.constructErrorMessage('answeredQuestions', 'array', answeredQuestions))
   }
 
   if(typeof totalCorrect !== 'number'){
-    throw new TypeError('totalCorrect must be of type number! Got ' + typeof totalCorrect)
+    throw new TypeError(utils.constructErrorMessage('totalCorrect', 'number', totalCorrect))
   }
 
   if(typeof totalAnswered !== 'number'){
-    throw new TypeError('totalAnswered must be of type number!')
+    throw new TypeError(utils.constructErrorMessage('totalAnswered', 'number', totalAnswered))
   }
 
   if(typeof complete !== 'boolean'){
-    throw new TypeError('complete must be of type boolean!')
+    throw new TypeError(utils.constructErrorMessage('complete', 'boolean', complete))
   }
 
   return {
@@ -53,27 +55,27 @@ const completedGame = (id, answeredQuestions, totalCorrect, totalAnswered, compl
 const currentQuestion = (id, questionCategory, questionText, answers, questionNumber) => {
   
   if(typeof id !== 'string'){
-    throw new TypeError('id must be of type string!')
+    throw new TypeError(utils.constructErrorMessage('id', 'string', id))
   }
 
   if(typeof questionCategory !== 'string'){
-    throw new TypeError('questionCategory must be of type string!')
+    throw new TypeError(utils.constructErrorMessage('questionCategory', 'string', questionCategory))
   }
 
   if(typeof questionText !== 'string'){
-   throw new TypeError('questionText must be of type string!')
+   throw new TypeError(utils.constructErrorMessage('questionText', 'string', questionText))
   }
 
   if(!answers instanceof Array){
-    throw new TypeError('answers must be of type array!')
+    throw new TypeError(utils.constructErrorMessage('answers', 'array', answers))
   }
 
   if(answers.some(answer => typeof answer !== 'string')){
-    throw new TypeError('answers elements must be of type string!')
+    throw new TypeError(utils.constructErrorMessage('answers elements', 'string', answers))
   }
 
   if(typeof questionNumber !== 'number'){
-    throw new TypeError('questionNumber must be of type number!')
+    throw new TypeError(utils.constructErrorMessage('questionNumber', 'number', questionNumber))
   }
 
   return {
@@ -88,15 +90,15 @@ const currentQuestion = (id, questionCategory, questionText, answers, questionNu
 const answer = (gameId, questionId, value) => {
 
   if(typeof gameId !== "string"){
-    throw new TypeError('gameId must be of type string!')
+    throw new TypeError(utils.constructErrorMessage('gameId', 'string', gameId))
   }
 
   if(typeof questionId !== 'string'){
-    throw new TypeError('questionId must be of type string!')
+    throw new TypeError(utils.constructErrorMessage('questionId', 'string', questionId))
   }
 
   if(typeof value !== 'string'){
-    throw new TypeError('value must be of type string!')
+    throw new TypeError(utils.constructErrorMessage('value', 'string', value))
   }
 
   return  {
